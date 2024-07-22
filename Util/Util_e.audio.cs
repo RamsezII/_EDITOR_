@@ -34,5 +34,12 @@ public static partial class Util_e
         Debug.Log(message);
         message.WriteToClipboard();
     }
+
+    [MenuItem("Assets/" + nameof(_EDITOR_) + "/" + nameof(LogAllAudioListeners))]
+    static void LogAllAudioListeners(MenuCommand command)
+    {
+        foreach (AudioListener listener in Object.FindObjectsOfType<AudioListener>(true))
+            Debug.Log($"{listener.name}.{nameof(listener.enabled)}: {listener.enabled} ({listener.transform.GetPath()})");
+    }
 }
 #endif
