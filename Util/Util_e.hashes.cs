@@ -6,13 +6,13 @@ using UnityEngine;
 
 public static partial class Util_e
 {
-    [MenuItem("Assets/" + nameof(Util_e) + "." + nameof(LogAnimatorInfos_fullhash))]
-    static void LogAnimatorInfos_fullhash() => LogAnimatorInfos_fullhash((AnimatorController)Selection.activeObject);
+    [MenuItem("Assets/" + nameof(Util_e) + "." + nameof(LogAnimatorHashes))]
+    static void LogAnimatorHashes() => LogAnimatorHashes((AnimatorController)Selection.activeObject);
 
-    [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(Util_e) + "." + nameof(LogAnimatorInfos_fullhash))]
-    static void LogAnimatorInfos_fullhash(MenuCommand command) => LogAnimatorInfos_fullhash(((Animator)command.context).runtimeAnimatorController as AnimatorController);
+    [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(Util_e) + "." + nameof(LogAnimatorHashes))]
+    static void LogAnimatorHashes(MenuCommand command) => LogAnimatorHashes(((Animator)command.context).runtimeAnimatorController as AnimatorController);
 
-    public static void LogAnimatorInfos_fullhash(this AnimatorController animator)
+    public static void LogAnimatorHashes(this AnimatorController animator)
     {
         StringBuilder log = new();
 
