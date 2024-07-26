@@ -9,6 +9,11 @@ public static partial class Util_e
     [MenuItem("CONTEXT/" + nameof(AudioSource) + "/" + nameof(_EDITOR_) + "/" + nameof(PlayAudio))]
     static void PlayAudio(MenuCommand menuCommand) => ((AudioSource)menuCommand.context).Play();
 
+    [MenuItem("CONTEXT/" + nameof(AudioSource) + "/" + nameof(_EDITOR_) + "/" + nameof(StopAudio))]
+    static void StopAudio(MenuCommand menuCommand) => ((AudioSource)menuCommand.context).Stop();
+
+    [MenuItem("CONTEXT/" + nameof(AudioSource) + "/" + nameof(_EDITOR_) + "/" + nameof(IsPlaying))]
+    static void IsPlaying(MenuCommand menuCommand) => Debug.Log(((AudioSource)menuCommand.context).isPlaying);
 
     [MenuItem("Assets/" + nameof(_EDITOR_) + "/" + nameof(ExportExposedParametersAsEnum))]
     static void ExportExposedParametersAsEnum() => ExportExposedParametersAsEnum((AudioMixer)Selection.activeObject);
