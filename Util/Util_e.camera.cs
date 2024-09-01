@@ -17,7 +17,7 @@ static partial class Util_e
         if (!Directory.Exists(path))
             Directory.CreateDirectory(path);
 
-        string filename = $"{path}/screenshot - {DateTime.Now:yyyy/MM/dd hhhmmmsss}.png";
+        string filename = $"{path}/screenshot - {DateTime.Now:yyyy-MM-dd hhhmmmsss}.png";
         Debug.Log($"Saving screenshot as {filename}...");
         ScreenCapture.CaptureScreenshot(filename, 1);
         Debug.Log($"Screenshot saved as {filename}");
