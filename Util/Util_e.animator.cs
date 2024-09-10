@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using System.Text;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -22,53 +23,74 @@ public static partial class Util_e
         Debug.Log(log);
     }
 
-    [MenuItem("Assets/" + nameof(_EDITOR_) + "/" + nameof(LogAnimatorInfos))]
-    static void LogAnimatorInfos() => LogAnimatorInfos((AnimatorController)Selection.activeObject);
+    [MenuItem("Assets/" + nameof(Util_e) + "." + nameof(LogAnimatorHashes))]
+    static void LogAnimatorHashes() => LogAnimatorHashes((AnimatorController)Selection.activeObject);
 
-    [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(_EDITOR_) + "/" + nameof(LogAnimatorInfos))]
-    static void LogAnimatorInfos(MenuCommand command) => LogAnimatorInfos(((Animator)command.context).runtimeAnimatorController as AnimatorController);
+    [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(Util_e) + "." + nameof(LogAnimatorHashes))]
+    static void LogAnimatorHashes(MenuCommand command) => LogAnimatorHashes(((Animator)command.context).runtimeAnimatorController as AnimatorController);
 
-    public static void LogAnimatorInfos(this AnimatorController animator)
+    public static void LogAnimatorHashes(this AnimatorController animator)
     {
-        string layersEnum = "public enum Layers : byte { ";
-        var statesEnums = new System.Collections.Generic.List<string>();
+        StringBuilder log = new();
 
-        foreach (AnimatorControllerLayer layer in animator.layers)
+        if (animator.layers.Length > 0)
         {
-            layersEnum += layer.name + ", ";
-
-            string statesEnum = "public enum " + layer.name + "States\n{\n";
-
-            RefAllStates(layer.stateMachine, ref statesEnum);
-
-            statesEnums.Add(statesEnum + "}");
+            log.Append("public enum Layers : byte { ");
+            foreach (AnimatorControllerLayer layer in animator.layers)
+                log.Append(layer.name + ", ");
+            log.AppendLine("_last_ }");
         }
 
-        layersEnum += " _last_ }\n\n";
+        if (animator.layers.Length > 0)
+            foreach (AnimatorControllerLayer layer in animator.layers)
+            {
+                log.AppendLine();
+                log.AppendLine($"public enum {layer.name}States");
+                log.AppendLine("{");
 
-        foreach (string statesEnum in statesEnums)
-            layersEnum += statesEnum + "\n\n";
+                AllStates(layer.stateMachine, string.Empty, layer.name);
 
-        layersEnum += "public enum Parameters\n{\n";
+                log.AppendLine("}");
 
-        foreach (var p in animator.parameters)
-            layersEnum += "    " + p.name + " = " + p.nameHash + ",\n";
+                void AllStates(in AnimatorStateMachine stateMachine, in string branch_name, in string branch_hash)
+                {
+                    if (stateMachine.stateMachines != null)
+                        foreach (ChildAnimatorStateMachine subStateMachine in stateMachine.stateMachines)
+                            if (string.IsNullOrEmpty(branch_name))
+                                AllStates(subStateMachine.stateMachine, $"{subStateMachine.stateMachine.name}_", $"{branch_hash}.{subStateMachine.stateMachine.name}");
+                            else
+                                AllStates(subStateMachine.stateMachine, $"{branch_name}_{subStateMachine.stateMachine.name}_", $"{branch_hash}.{subStateMachine.stateMachine.name}");
 
-        layersEnum += "}";
+                    if (stateMachine.states != null)
+                        foreach (var subState in stateMachine.states)
+                        {
+                            log.Append($"    {branch_name}{subState.state.name} = ");
+                            if (string.IsNullOrEmpty(branch_hash))
+                                log.AppendLine(subState.state.nameHash + ",");
+                            else
+                            {
+                                string fullhashname = branch_hash + "." + subState.state.name;
+                                log.AppendLine(Animator.StringToHash(fullhashname) + ",");
+                            }
+                        }
+                }
+            }
 
-        layersEnum.WriteToClipboard();
-        Debug.Log(layersEnum);
-
-        static void RefAllStates(AnimatorStateMachine stateMachine, ref string log, string branch = default)
+        if (animator.parameters.Length > 0)
         {
-            if (stateMachine.stateMachines != null)
-                foreach (var subStateMachine in stateMachine.stateMachines)
-                    RefAllStates(subStateMachine.stateMachine, ref log, branch + subStateMachine.stateMachine.name + "_");
+            log.AppendLine();
+            log.AppendLine("public enum Parameters");
+            log.AppendLine("{");
 
-            if (stateMachine.states != null)
-                foreach (var subState in stateMachine.states)
-                    log += "    " + branch + subState.state.name + " = " + subState.state.nameHash + ",\n";
+            foreach (var p in animator.parameters)
+                log.AppendLine($"    {p.name} = {p.nameHash},");
+
+            log.AppendLine("}");
         }
+
+        string _log = log.ToString();
+        Debug.Log(_log);
+        _log.WriteToClipboard();
     }
 }
 #endif
