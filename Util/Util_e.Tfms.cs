@@ -27,7 +27,7 @@ static partial class Util_e
     [MenuItem("CONTEXT/" + nameof(Transform) + "/" + nameof(_EDITOR_) + "/" + nameof(GetPath))]
     static void GetPath(MenuCommand command)
     {
-        string path = ((Transform)command.context).GetPath();
+        string path = ((Transform)command.context).GetPath(false);
         Debug.Log(path);
         GUIUtility.systemCopyBuffer = path;
     }
@@ -36,7 +36,7 @@ static partial class Util_e
     [MenuItem("CONTEXT/" + nameof(Transform) + "/" + nameof(_EDITOR_) + "/" + nameof(GetFullPath))]
     static void GetFullPath(MenuCommand command)
     {
-        string path = ((Transform)command.context).GetPath(null);
+        string path = ((Transform)command.context).GetPath(true);
         Debug.Log(path);
         GUIUtility.systemCopyBuffer = path;
     }

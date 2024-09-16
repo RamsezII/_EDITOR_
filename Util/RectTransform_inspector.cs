@@ -18,7 +18,7 @@ namespace _EDITOR_
             if (GUILayout.Button(nameof(Util_e.FillParent)))
                 rT.FillParent();
             if (GUILayout.Button(nameof(Util.GetPath)))
-                Debug.Log(rT.GetPath());
+                Debug.Log(rT.GetPath(true));
             if (GUILayout.Button(nameof(Util_e.LogTypes)))
                 rT.LogTypes();
         }
