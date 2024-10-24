@@ -10,7 +10,10 @@ public static partial class Util_e
     static void LogHumanScale(MenuCommand command) => Debug.Log(((Animator)command.context).humanScale);
 
     [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(_EDITOR_) + "/" + nameof(LogAnimatorClips))]
-    static void LogAnimatorClips(MenuCommand command) => LogAnimatorClips((Animator)command.context);
+    static void LogClips(MenuCommand command) => LogAnimatorClips((Animator)command.context);
+
+    [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(_EDITOR_) + "/" + nameof(LogSpeed))]
+    static void LogSpeed(MenuCommand command) => Debug.Log(((Animator)command.context).speed);
 
     public static void LogAnimatorClips(this Animator animator)
     {
