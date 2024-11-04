@@ -12,25 +12,25 @@ public static partial class Util_e
         Debug.Log($"Preferred Height: {verticalLayoutGroup.preferredHeight}");
     }
 
-    [MenuItem("CONTEXT/" + nameof(VerticalLayoutGroup) + "/" + nameof(AutoHeight))]
+    [MenuItem("CONTEXT/" + nameof(LayoutGroup) + "/" + nameof(AutoHeight))]
     public static void AutoHeight(MenuCommand command)
     {
-        VerticalLayoutGroup verticalLayoutGroup = (VerticalLayoutGroup)command.context;
-        RectTransform rT = (RectTransform)verticalLayoutGroup.transform;
+        LayoutGroup layoutGroup = (LayoutGroup)command.context;
+        RectTransform rT = (RectTransform)layoutGroup.transform;
 
         Vector2 sizeDelta = rT.sizeDelta;
-        sizeDelta.y = verticalLayoutGroup.preferredHeight;
+        sizeDelta.y = layoutGroup.preferredHeight;
         rT.sizeDelta = sizeDelta;
     }
 
-    [MenuItem("CONTEXT/" + nameof(VerticalLayoutGroup) + "/" + nameof(AutoHeightParent))]
+    [MenuItem("CONTEXT/" + nameof(LayoutGroup) + "/" + nameof(AutoHeightParent))]
     public static void AutoHeightParent(MenuCommand command)
     {
-        VerticalLayoutGroup verticalLayoutGroup = (VerticalLayoutGroup)command.context;
-        RectTransform rT = (RectTransform)verticalLayoutGroup.transform.parent;
+        LayoutGroup layoutGroup = (LayoutGroup)command.context;
+        RectTransform rT = (RectTransform)layoutGroup.transform.parent;
 
         Vector2 sizeDelta = rT.sizeDelta;
-        sizeDelta.y = verticalLayoutGroup.preferredHeight;
+        sizeDelta.y = layoutGroup.preferredHeight;
         rT.sizeDelta = sizeDelta;
     }
 }

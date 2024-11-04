@@ -3,10 +3,18 @@ using _UTIL_;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 static partial class Util_e
 {
+    [MenuItem("CONTEXT/" + nameof(EventSystem) + "/" + nameof(LogSelected))]
+    static void LogSelected(MenuCommand command)
+    {
+        EventSystem es = ((EventSystem)command.context);
+        Debug.Log(es.currentSelectedGameObject, es);
+    }
+
     [MenuItem("CONTEXT/" + nameof(TextMeshProUGUI) + "/" + nameof(GetTextBounds))]
     static void GetTextBounds(MenuCommand command)
     {
