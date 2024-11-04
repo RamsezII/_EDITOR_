@@ -14,6 +14,22 @@ static partial class Util_e
         Debug.Log("(" + size.x + ", " + size.y + ")");
     }
 
+    [MenuItem("CONTEXT/" + nameof(TextMeshProUGUI) + "/" + nameof(AutoBounds))]
+    static void AutoBounds(MenuCommand command)
+    {
+        TextMeshProUGUI tmp = ((TextMeshProUGUI)command.context);
+        Vector2 size = tmp.textBounds.size;
+        tmp.rectTransform.sizeDelta = size;
+    }
+
+    [MenuItem("CONTEXT/" + nameof(TextMeshProUGUI) + "/" + nameof(AutoBoundsParent))]
+    static void AutoBoundsParent(MenuCommand command)
+    {
+        TextMeshProUGUI tmp = ((TextMeshProUGUI)command.context);
+        Vector2 size = tmp.textBounds.size;
+        ((RectTransform)tmp.rectTransform.parent).sizeDelta = size;
+    }
+
     [MenuItem("CONTEXT/" + nameof(TextMeshProUGUI) + "/" + nameof(AddTraductable))]
     static void AddTraductable(MenuCommand command) => ((TextMeshProUGUI)command.context).gameObject.AddComponent<Traductable>();
 
