@@ -6,10 +6,10 @@ using UnityEngine.Audio;
 
 partial class Util_e
 {
-    [MenuItem("Assets/" + nameof(Util_e) + "." + nameof(LogAudioMixerParameters))]
+    [MenuItem("Assets/" + nameof(_EDITOR_) + "/" + nameof(LogAudioMixerParameters))]
     static void LogAudioMixerParameters() => LogExposedParameters((AudioMixer)Selection.activeObject);
 
-    [MenuItem("CONTEXT/" + nameof(AudioMixer) + "/" + nameof(Util_e) + "." + nameof(LogExposedParameters))]
+    [MenuItem("CONTEXT/" + nameof(AudioMixer) + "/" + nameof(_EDITOR_) + "/" + nameof(LogExposedParameters))]
     static void LogExposedParameters(MenuCommand command) => LogExposedParameters((AudioMixer)command.context);
 
     static void LogExposedParameters(in AudioMixer mixer)

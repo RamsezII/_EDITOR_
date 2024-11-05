@@ -6,13 +6,13 @@ using UnityEngine;
 
 public static partial class Util_e
 {
-    [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(_EDITOR_) + "/" + nameof(LogHumanScale))]
+    [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(_EDITOR_) + "." + nameof(LogHumanScale))]
     static void LogHumanScale(MenuCommand command) => Debug.Log(((Animator)command.context).humanScale);
 
-    [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(_EDITOR_) + "/" + nameof(LogAnimatorClips))]
+    [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(_EDITOR_) + "." + nameof(LogAnimatorClips))]
     static void LogClips(MenuCommand command) => LogAnimatorClips((Animator)command.context);
 
-    [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(_EDITOR_) + "/" + nameof(LogSpeed))]
+    [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(_EDITOR_) + "." + nameof(LogSpeed))]
     static void LogSpeed(MenuCommand command) => Debug.Log(((Animator)command.context).speed);
 
     public static void LogAnimatorClips(this Animator animator)
@@ -26,10 +26,10 @@ public static partial class Util_e
         Debug.Log(log);
     }
 
-    [MenuItem("Assets/" + nameof(Util_e) + "." + nameof(LogAnimatorHashes))]
+    [MenuItem("Assets/" + nameof(_EDITOR_) + "." + nameof(LogAnimatorHashes))]
     static void LogAnimatorHashes() => LogAnimatorHashes((AnimatorController)Selection.activeObject);
 
-    [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(Util_e) + "." + nameof(LogAnimatorHashes))]
+    [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(_EDITOR_) + "." + nameof(LogAnimatorHashes))]
     static void LogAnimatorHashes(MenuCommand command) => LogAnimatorHashes(((Animator)command.context).runtimeAnimatorController as AnimatorController);
 
     public static void LogAnimatorHashes(this AnimatorController animator)
