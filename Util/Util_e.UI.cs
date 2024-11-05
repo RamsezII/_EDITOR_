@@ -23,12 +23,7 @@ static partial class Util_e
     }
 
     [MenuItem("CONTEXT/" + nameof(TextMeshProUGUI) + "/" + nameof(AutoBounds))]
-    static void AutoBounds(MenuCommand command)
-    {
-        TextMeshProUGUI tmp = ((TextMeshProUGUI)command.context);
-        Vector2 size = tmp.textBounds.size;
-        tmp.rectTransform.sizeDelta = size;
-    }
+    static void AutoBounds(MenuCommand command) => ((TextMeshProUGUI)command.context).AutoSize();
 
     [MenuItem("CONTEXT/" + nameof(TextMeshProUGUI) + "/" + nameof(AutoBoundsParent))]
     static void AutoBoundsParent(MenuCommand command)
