@@ -59,12 +59,14 @@ partial class Util_e
         }
 
         AssetDatabase.Refresh();
+
+        Debug.Log("Textures modifiées avec succès !");
     }
 
     static Texture2D ReplaceColorWithWhiteFunc(Texture2D texture)
     {
         // Crée une nouvelle texture avec les mêmes dimensions
-        Texture2D newTexture = new Texture2D(texture.width, texture.height, TextureFormat.ARGB32, false);
+        Texture2D newTexture = new(texture.width, texture.height, TextureFormat.ARGB32, false);
 
         // Récupère tous les pixels de la texture originale
         Color[] pixels = texture.GetPixels();
