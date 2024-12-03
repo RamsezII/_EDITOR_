@@ -4,6 +4,9 @@ using UnityEngine;
 
 static partial class Util_e
 {
+    [MenuItem("CONTEXT/" + nameof(Transform) + "/" + nameof(_EDITOR_) + "/" + nameof(UnparentTransform))]
+    static void UnparentTransform(MenuCommand command) => ((Transform)command.context).SetParent(null, true);
+
     [MenuItem("CONTEXT/" + nameof(Transform) + "/" + nameof(_EDITOR_) + "/" + nameof(LogTypes))]
     static void LogTypes(MenuCommand command) => ((Transform)command.context).LogTypes();
     internal static void LogTypes(this Transform T)
