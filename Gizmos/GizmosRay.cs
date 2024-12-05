@@ -1,5 +1,4 @@
 ﻿using _EDITOR_;
-using UnityEditor;
 using UnityEngine;
 
 namespace _EDITOR_
@@ -25,8 +24,10 @@ namespace _EDITOR_
     }
 }
 
+#if UNITY_EDITOR
 partial class Util_e
 {
-    [MenuItem("CONTEXT/" + nameof(Transform) + "/" + nameof(Util_e) + "." + nameof(AddGizmosRay))]
-    static void AddGizmosRay(MenuCommand command) => ((Transform)command.context).gameObject.AddComponent<GizmosRay>();
+    [UnityEditor.MenuItem("CONTEXT/" + nameof(Transform) + "/" + nameof(Util_e) + "." + nameof(AddGizmosRay))]
+    static void AddGizmosRay(UnityEditor.MenuCommand command) => ((Transform)command.context).gameObject.AddComponent<GizmosRay>();
 }
+#endif
