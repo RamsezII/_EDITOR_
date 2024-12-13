@@ -8,7 +8,7 @@ partial class Util_e
     static void ResetRigidbody(MenuCommand menuCommand)
     {
         Rigidbody rigidbody = (Rigidbody)menuCommand.context;
-        rigidbody.position = rigidbody.velocity = rigidbody.angularVelocity = Vector3.zero;
+        rigidbody.position = rigidbody.linearVelocity = rigidbody.angularVelocity = Vector3.zero;
         rigidbody.rotation = Quaternion.identity;
     }
 }
