@@ -26,7 +26,7 @@ public static partial class Util_e
         Debug.Log(log);
     }
 
-    [MenuItem("Assets/" + nameof(_EDITOR_) + "." + nameof(LogAnimatorHashes))]
+    [MenuItem("Assets/" + nameof(_EDITOR_) + "/" + nameof(LogAnimatorHashes))]
     static void LogAnimatorHashes() => LogAnimatorHashes((AnimatorController)Selection.activeObject);
 
     [MenuItem("CONTEXT/" + nameof(Animator) + "/" + nameof(_EDITOR_) + "." + nameof(LogAnimatorHashes))]
