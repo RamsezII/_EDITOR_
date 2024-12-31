@@ -31,13 +31,14 @@ namespace _EDITOR_
             List<ModelImporterClipAnimation> animationClips = new();
 
             ModelImporterClipAnimation clip0 = importer.clipAnimations[0];
+            int index = 0;
             float frame_f = clip0.firstFrame;
             while (frame_f < clip0.lastFrame)
             {
                 float frame_l = Mathf.Min(frame_f + 1000, clip0.lastFrame);
                 animationClips.Add(new()
                 {
-                    name = $"{clip0.name}[{frame_f},{frame_l}]",
+                    name = (++index).ToString(),
                     firstFrame = frame_f,
                     lastFrame = frame_l,
                 });

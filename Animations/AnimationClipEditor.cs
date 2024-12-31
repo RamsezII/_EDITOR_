@@ -1,104 +1,101 @@
-﻿#if UNITY_EDITOR
-using UnityEditor;
-using UnityEngine;
+﻿//#if UNITY_EDITOR
+//using System.Collections.Generic;
+//using System.Linq;
+//using UnityEditor;
+//using UnityEditorInternal;
+//using UnityEngine;
 
-namespace _EDITOR_
-{
-    public class AnimationClipEditor : EditorWindow
-    {
-        private GameObject selectedObject;
-        private ModelImporterClipAnimation[] clipAnimations;
+//namespace _EDITOR_
+//{
+//    public class AnimationClipEditor : EditorWindow
+//    {
+//        ReorderableList reorderableList;
+//        List<ModelImporterClipAnimation> clipAnimations;
 
-        //--------------------------------------------------------------------------------------------------------------
+//        //--------------------------------------------------------------------------------------------------------------
 
-        [MenuItem("Assets/" + nameof(_EDITOR_) + "/" + nameof(ShowAnimationClipEditor))]
-        public static void ShowAnimationClipEditor()
-        {
-            GetWindow<AnimationClipEditor>("Animation Clip Editor");
-        }
+//        [MenuItem("Assets/" + nameof(_EDITOR_) + "/" + nameof(ShowAnimationClipEditor))]
+//        public static void ShowAnimationClipEditor()
+//        {
+//            GetWindow<AnimationClipEditor>(typeof(AnimationClipEditor).FullName);
+//        }
 
-        //--------------------------------------------------------------------------------------------------------------
+//        //--------------------------------------------------------------------------------------------------------------
 
-        private void OnGUI()
-        {
-            GUILayout.Label("Animation Clip Editor", EditorStyles.boldLabel);
+//        private void OnEnable()
+//        {
+//            ReloadAnimations();
 
-            // Sélectionner un GameObject
-            selectedObject = (GameObject)EditorGUILayout.ObjectField("Selected Model", selectedObject, typeof(GameObject), true);
+//            reorderableList = new(clipAnimations, typeof(string), true, true, true, true);
 
-            if (selectedObject == null)
-            {
-                GUILayout.Label("Sélectionne un GameObject contenant un modèle avec des animations.");
-                return;
-            }
+//            reorderableList.drawHeaderCallback += rect => EditorGUI.LabelField(rect, "Liste Réorganisable");
 
-            // Charger les animations
-            if (GUILayout.Button("Charger les Animations"))
-            {
-                LoadAnimations();
-            }
+//            reorderableList.drawElementCallback += (rect, index, isActive, isFocused) => clipAnimations[index] = EditorGUI.TextField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), clipAnimations[index]);
 
-            if (clipAnimations != null && clipAnimations.Length > 0)
-            {
-                GUILayout.Label($"Nombre d'animations : {clipAnimations.Length}", EditorStyles.boldLabel);
+//            reorderableList.onAddCallback += list => clipAnimations.Add("Nouvel élément");
 
-                // Liste des animations modifiables
-                for (int i = 0; i < clipAnimations.Length; i++)
-                {
-                    GUILayout.BeginVertical("box");
-                    clipAnimations[i].name = EditorGUILayout.TextField("Nom", clipAnimations[i].name);
-                    clipAnimations[i].firstFrame = EditorGUILayout.FloatField("Première Frame", clipAnimations[i].firstFrame);
-                    clipAnimations[i].lastFrame = EditorGUILayout.FloatField("Dernière Frame", clipAnimations[i].lastFrame);
-                    clipAnimations[i].loopTime = EditorGUILayout.Toggle("Loop", clipAnimations[i].loopTime);
-                    GUILayout.EndVertical();
-                }
+//            reorderableList.onRemoveCallback += list =>
+//            {
+//                if (EditorUtility.DisplayDialog("Confirmer la suppression", "Supprimer cet élément ?", "Oui", "Non"))
+//                    clipAnimations.RemoveAt(list.index);
+//            };
+//        }
 
-                // Bouton pour appliquer les modifications
-                if (GUILayout.Button("Appliquer les Modifications"))
-                {
-                    ApplyAnimations();
-                }
-            }
-        }
+//        //--------------------------------------------------------------------------------------------------------------
 
-        private void LoadAnimations()
-        {
-            string path = AssetDatabase.GetAssetPath(selectedObject);
-            var importer = AssetImporter.GetAtPath(path) as ModelImporter;
+//        private void OnGUI()
+//        {
+//            GUILayout.Label(typeof(AnimationClipEditor).FullName, EditorStyles.boldLabel);
 
-            if (importer != null)
-            {
-                clipAnimations = importer.defaultClipAnimations;
-                Debug.Log($"Chargé {clipAnimations.Length} clips d'animations.");
-            }
-            else
-            {
-                Debug.LogError("Le modèle sélectionné n'a pas de ModelImporter.");
-            }
-        }
+//            if (GUILayout.Button(nameof(ReloadAnimations)))
+//                ReloadAnimations();
 
-        private void ApplyAnimations()
-        {
-            if (clipAnimations == null)
-            {
-                Debug.LogError("Aucune animation à appliquer.");
-                return;
-            }
+//            if (clipAnimations != null && clipAnimations.Count > 0)
+//            {
+//                GUILayout.Label($"Nombre d'animations : {clipAnimations.Count}", EditorStyles.boldLabel);
 
-            string path = AssetDatabase.GetAssetPath(selectedObject);
-            var importer = AssetImporter.GetAtPath(path) as ModelImporter;
+//                if (reorderableList != null)
+//                    reorderableList.DoLayoutList();
 
-            if (importer != null)
-            {
-                importer.clipAnimations = clipAnimations;
-                AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
-                Debug.Log("Modifications appliquées avec succès !");
-            }
-            else
-            {
-                Debug.LogError("Erreur lors de l'application des animations.");
-            }
-        }
-    }
-}
-#endif
+//                if (GUILayout.Button("Appliquer les Modifications"))
+//                    ApplyAnimations();
+//            }
+//        }
+
+//        void ReloadAnimations()
+//        {
+//            string path = AssetDatabase.GetAssetPath(Selection.activeGameObject);
+//            ModelImporter importer = AssetImporter.GetAtPath(path) as ModelImporter;
+
+//            if (importer != null)
+//            {
+//                clipAnimations = importer.defaultClipAnimations.ToList();
+//                Debug.Log($"Chargé {clipAnimations.Count} clips d'animations.");
+//            }
+//            else
+//                Debug.LogError("Le modèle sélectionné n'a pas de ModelImporter.");
+//        }
+
+//        void ApplyAnimations()
+//        {
+//            if (clipAnimations == null)
+//            {
+//                Debug.LogError("Aucune animation à appliquer.");
+//                return;
+//            }
+
+//            string path = AssetDatabase.GetAssetPath(Selection.activeGameObject);
+//            ModelImporter importer = AssetImporter.GetAtPath(path) as ModelImporter;
+
+//            if (importer != null)
+//            {
+//                importer.clipAnimations = clipAnimations.ToArray();
+//                AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+//                Debug.Log("Modifications appliquées avec succès !");
+//            }
+//            else
+//                Debug.LogError("Erreur lors de l'application des animations.");
+//        }
+//    }
+//}
+//#endif
