@@ -38,7 +38,7 @@ public static partial class Util_e
 
         if (animator.layers.Length > 0)
         {
-            log.Append("public enum Layers : byte { ");
+            log.Append("public enum AnimLayers : byte { ");
             foreach (AnimatorControllerLayer layer in animator.layers)
                 log.Append(layer.name + ", ");
             log.AppendLine("_last_ }");
@@ -82,7 +82,7 @@ public static partial class Util_e
         if (animator.parameters.Length > 0)
         {
             log.AppendLine();
-            log.AppendLine("public enum Parameters");
+            log.AppendLine("public enum AnimParameters");
             log.AppendLine("{");
 
             foreach (var p in animator.parameters)
