@@ -43,7 +43,7 @@ namespace _EDITOR_
 
             AssetDatabase.CreateAsset(urpMaterial, assetPath);
             AssetDatabase.SaveAssets();
-            Debug.Log($"Converted {material.name} to URP.");
+            Debug.Log($"Converted {urpMaterial} to URP.");
         }
     }
 }
