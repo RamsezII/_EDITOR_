@@ -66,7 +66,6 @@ partial class Util_e
 
         sb.Clear();
 
-        sb.AppendLine("=== Total C# Scripts & Lines Count ===");
         sb.AppendLine($"scripts: {totalScripts}");
         sb.AppendLine($"lines: {totalLines}");
         sb.AppendLine($"scripts (including 3rd party): {totalScripts_all}");
