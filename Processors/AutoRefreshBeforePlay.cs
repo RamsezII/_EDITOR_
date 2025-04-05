@@ -17,15 +17,20 @@ namespace _EDITOR_
 
         static void OnPlayModeStateChanged(PlayModeStateChange state)
         {
-            if (state == PlayModeStateChange.ExitingEditMode)
+            switch (state)
             {
-                Debug.Log("🔁 Auto Refresh avant Play...".ToSubLog());
+                case PlayModeStateChange.ExitingEditMode:
+                case PlayModeStateChange.EnteredEditMode:
+                    {
+                        Debug.Log("🔁 Auto Refresh avant Play...".ToSubLog());
 
-                double start = Util.TotalMilliseconds;
-                AssetDatabase.Refresh();
-                double stop = Util.TotalMilliseconds;
+                        double start = Util.TotalMilliseconds;
+                        AssetDatabase.Refresh();
+                        double stop = Util.TotalMilliseconds;
 
-                Debug.Log($"🔁 Auto Refresh terminé en {(stop - start) / 1000.0}s.".ToSubLog());
+                        Debug.Log($"🔁 Auto Refresh terminé en {(stop - start) / 1000.0}s.".ToSubLog());
+                    }
+                    break;
             }
         }
     }
