@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -28,7 +29,7 @@ namespace _EDITOR_
                         AssetDatabase.Refresh();
                         double stop = Util.TotalMilliseconds;
 
-                        Debug.Log($"🔁 Auto Refresh terminé en {(stop - start) / 1000.0}s.".ToSubLog());
+                        Debug.Log($"🔁 Auto Refresh terminé en {Math.Round((stop - start) / 1000.0, 2)}s.".ToSubLog());
                     }
                     break;
             }
